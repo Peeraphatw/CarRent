@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-  session_start();
+session_start();
 ?>
 <html lang="en">
 
@@ -65,9 +65,9 @@
                         ประเภทรภ
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <?php $cartype = array("SmallCar","Truck","SUV","Van"); 
-              foreach($cartype as $TypeMenu){
-              ?>
+                        <?php $cartype = array("SmallCar", "Truck", "SUV", "Van");
+foreach ($cartype as $TypeMenu) {
+    ?>
                         <a class="dropdown-item" href="ListCar.php?Type_Filter=<?=$TypeMenu?>"><?=$TypeMenu?></a>
                         <?php }?>
                         <a class="dropdown-item" href="Biling.php">Biling Carrent</a>
@@ -89,15 +89,14 @@
         </div>
     </nav>
     <?php
-      $CarSequnece = $_GET["CarSequence"];
-      $con = new mysqli("localhost","root","","V_carental");
-      $query = "SELECT Path,Model,Year FROM v_carental_carmanager WHERE CarSequence = '$CarSequnece'";
-      $result = $con->query($query);
-      if($result->num_rows <> 0)
-      {
-        $data =  $result->fetch_assoc();
-      }
-    ?>
+$CarSequnece = $_GET["CarSequence"];
+$con = new mysqli("localhost", "root", "", "V_carental");
+$query = "SELECT Path,Model,Year FROM v_carental_carmanager WHERE CarSequence = '$CarSequnece'";
+$result = $con->query($query);
+if ($result->num_rows != 0) {
+    $data = $result->fetch_assoc();
+}
+?>
     <div class="container mt-5">
         <div class="row">
             <div class="col">

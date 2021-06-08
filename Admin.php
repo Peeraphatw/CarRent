@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <?php
-  session_start();
-  if(!isset($_SESSION["Username"]))
-  {
+session_start();
+if (!isset($_SESSION["Username"])) {
     header("Location:Admin_Loging.php");
-  }
+}
 ?>
 <html lang="en">
 
@@ -77,9 +76,9 @@ img {
                         <!-- <a class="dropdown-item" href="#">รถเล็ก</a>
               <a class="dropdown-item" href="#">รถเล็ก</a>
               <a class="dropdown-item" href="#">รถเล็ก</a> -->
-                        <?php $cartype = array("SmallCar","Truck","SUV","Van"); 
-              foreach($cartype as $TypeMenu){
-              ?>
+                        <?php $cartype = array("SmallCar", "Truck", "SUV", "Van");
+foreach ($cartype as $TypeMenu) {
+    ?>
                         <a class="dropdown-item" href="ListCar.php?Type_Filter=<?=$TypeMenu?>"><?=$TypeMenu?></a>
                         <?php }?>
                         <a class="dropdown-item" href="Biling.php">Biling Carrent</a>
@@ -140,23 +139,18 @@ img {
                             </thead>
                             <tbody>
                                 <?php
-                   $con = new mysqli("localhost","root","","V_carental");
-                   if(isset($_GET["ID_Search"]) && $_GET["ID_Search"] <> "")
-                   {
-                    $query = "SELECT * FROM v_carental_reservation WHERE Personnumber = '$_GET[ID_Search]' ";
-                   }
-                   else
-                   {
-                    $query = "SELECT * FROM v_carental_reservation";
-                   }
-                   
-                   $result = $con->query($query);
-                   $No = 1;
-                   while($row = $result->fetch_assoc())
-                   {
+$con = new mysqli("localhost", "root", "", "V_carental");
+if (isset($_GET["ID_Search"]) && $_GET["ID_Search"] != "") {
+    $query = "SELECT * FROM v_carental_reservation WHERE Personnumber = '$_GET[ID_Search]' ";
+} else {
+    $query = "SELECT * FROM v_carental_reservation";
+}
 
-                   
-                  ?>
+$result = $con->query($query);
+$No = 1;
+while ($row = $result->fetch_assoc()) {
+
+    ?>
                                 <tr>
                                     <td class="text-monospace"><?=$No?></td>
                                     <td class="text-monospace"><?=$row["Name"]?> Waikijjee</td>
@@ -171,19 +165,19 @@ img {
                                             target="_blank"><button
                                                 class="btn btn-success">ShowDriverLicense</button></a></td>
 
-                                    <?php 
-                            $con2 = new mysqli("localhost","root","","V_carental");
-                            $select_path = "SELECT Path FROM v_carental_carmanager WHERE CarSequence = '$row[CarSequence]'";
-                            $res = $con2->query($select_path);
-                            $data_path = $res->fetch_assoc();
+                                    <?php
+$con2 = new mysqli("localhost", "root", "", "V_carental");
+    $select_path = "SELECT Path FROM v_carental_carmanager WHERE CarSequence = '$row[CarSequence]'";
+    $res = $con2->query($select_path);
+    $data_path = $res->fetch_assoc();
 
-                      ?>
+    ?>
                                     <td class="text-monospace"><a href="CarStore/<?=$data_path["Path"]?>"
                                             target="_blank"><button class="btn btn-success">ShowCarPicking</button></a>
                                     </td>
 
                                     <td class="text-monospace"><a href="
-                    <?php if($row["Biling"] <> "") {?>bilingPic/<?=$row["Biling"]?> <?php } else{ echo "#"; }?>
+                    <?php if ($row["Biling"] != "") {?>bilingPic/<?=$row["Biling"]?> <?php } else {echo "#";}?>
                     " target="_blank">
                                             <button class="btn btn-success" disable>ShowBiling</button></a></td>
 
@@ -192,11 +186,10 @@ img {
                                     <td class="text-monospace"><?=$row["RentStatus"]?></td>
                                     <td class="text-monospace"><?=$row["Actual_Return"]?>
                                         <?php
-                      if($row["Actual_Return"] <> "")
-                      {
-                        echo "<br><a href='Bilprint.php?Personnumber=$row[Personnumber]'>Print Biling</a>";
-                      }
-                    ?>
+if ($row["Actual_Return"] != "") {
+        echo "<br><a href='Bilprint.php?Personnumber=$row[Personnumber]'>Print Biling</a>";
+    }
+    ?>
                                     </td>
 
                                     <td class="text-center">
@@ -227,16 +220,14 @@ img {
                                                                     <option value="<?=$row["RentStatus"]?>">
                                                                         <?=$row["RentStatus"]?></option>
                                                                     <?php
-                                    $rentstatuslist = array("Padding","Confirmed","Returned");
-                                    foreach($rentstatuslist as $rentstatus)
-                                    {
-                                      if($rentstatus <>$row["RentStatus"])
-                                      {
-                                        echo "<option value='$rentstatus'>$rentstatus</option>";
-                                      }
-                                      
-                                    }
-                                  ?>
+$rentstatuslist = array("Padding", "Confirmed", "Returned");
+    foreach ($rentstatuslist as $rentstatus) {
+        if ($rentstatus != $row["RentStatus"]) {
+            echo "<option value='$rentstatus'>$rentstatus</option>";
+        }
+
+    }
+    ?>
 
                                                                 </select>
                                                             </div>
@@ -304,9 +295,9 @@ img {
                     </tr>
 
                     <?php
-                $No++;
-                }  
-                ?>
+$No++;
+}
+?>
 
                     </tbody>
                     </table>

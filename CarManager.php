@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <?php
-  session_start();
-  if(!isset($_SESSION["Username"]))
-  {
+session_start();
+if (!isset($_SESSION["Username"])) {
     header("Location:Admin_Loging.php");
-  }
+}
 ?>
 <html lang="en">
 
@@ -67,9 +66,9 @@
                         ประเภทรภ
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <?php $cartype = array("SmallCar","Truck","SUV","Van"); 
-              foreach($cartype as $TypeMenu){
-              ?>
+                        <?php $cartype = array("SmallCar", "Truck", "SUV", "Van");
+foreach ($cartype as $TypeMenu) {
+    ?>
                         <a class="dropdown-item" href="ListCar.php?Type_Filter=<?=$TypeMenu?>"><?=$TypeMenu?></a>
                         <?php }?>
                         <a class="dropdown-item" href="Biling.php">Biling Carrent</a>
@@ -126,10 +125,11 @@
                             </thead>
                             <tbody>
                                 <?php
-                   $con = new mysqli("localhost","root","","v_carental");
-                   $query = "SELECT * FROM v_carental_carmanager";
-                   $result = $con->query($query); $No = 1; 
-                   while($row = $result->fetch_assoc()) { ?>
+$con = new mysqli("localhost", "root", "", "v_carental");
+$query = "SELECT * FROM v_carental_carmanager";
+$result = $con->query($query);
+$No = 1;
+while ($row = $result->fetch_assoc()) {?>
                                 <tr>
                                     <td class="text-monospace"><?=$No?></td>
                                     <td class="text-monospace"><?=$row["CarSequence"]?></td>
@@ -137,7 +137,7 @@
                                     <td class="text-monospace"><?=$row["Model"]?></td>
                                     <td class="text-monospace"><?=$row["Year"]?></td>
                                     <td class="text-monospace"><?=$row["Seat"]?></td>
-                                    <td class="text-monospace"><?=number_format($row["Price"])." THB"?></td>
+                                    <td class="text-monospace"><?=number_format($row["Price"]) . " THB"?></td>
                                     <td class="text-monospace"><?=$row["Type"]?></td>
                                     <td class="text-monospace"><a href="CarStore/<?=$row["Path"]?>"
                                             target="_blank"><button class="btn btn-success">ShowCar</button></a></td>
@@ -219,19 +219,18 @@
                                                             <div class="form-row">
                                                                 <label for="Price">Price</label>
                                                                 <input type="text" name="Price" class="form-control"
-                                                                    value="<?=number_format($row["Price"])." THB"?>" />
+                                                                    value="<?=number_format($row["Price"]) . " THB"?>" />
                                                             </div>
                                                             <div class="form-row">
                                                                 <label for="Type">Type</label>
                                                                 <select name="Type" id="" class="form-control">
                                                                     <option><?=$row["Type"]?></option>
-                                                                    <?php 
-                  $cartype = array("SmallCar","Truck","SUV","Van");
-                  foreach($cartype as $type)
-                  { if($type <> $row["Type"]){
-                ?>
+                                                                    <?php
+$cartype = array("SmallCar", "Truck", "SUV", "Van");
+    foreach ($cartype as $type) {if ($type != $row["Type"]) {
+        ?>
                                                                     <option><?=$type?></option>
-                                                                    <?php } }?>
+                                                                    <?php }}?>
                                                                 </select>
                                                             </div>
                                                             <div class="form-row">
@@ -239,14 +238,13 @@
                                                                 <select name="Carstatus" class="form-control">
                                                                     <option value="<?=$row["Carstatus"]?>">
                                                                         <?=$row["Carstatus"]?></option>
-                                                                    <?php 
-                                     $Carstatus = array("Available","Picking","On Rent","UnAvailable");
-                                      foreach($Carstatus as $Status){
-                                      if($Status <> $row["Carstatus"])
-                                      {                           
-                                    ?>
+                                                                    <?php
+$Carstatus = array("Available", "Picking", "On Rent", "UnAvailable");
+    foreach ($Carstatus as $Status) {
+        if ($Status != $row["Carstatus"]) {
+            ?>
                                                                     <option value="<?=$Status?>"><?=$Status?></option>
-                                                                    <?php } } ?>
+                                                                    <?php }}?>
                                                                 </select>
 
                                                             </div>
@@ -307,9 +305,9 @@
                     </tr>
 
                     <?php
-                $No++;
-                }  
-                ?>
+$No++;
+}
+?>
                     </tbody>
                     </table>
                 </div>
@@ -366,11 +364,10 @@
                         <div class="form-row">
                             <label for="Type">Type</label>
                             <select name="Type" id="" class="form-control">
-                                <?php 
-                  $cartype = array("SmallCar","Truck","SUV","Van");
-                  foreach($cartype as $type)
-                  {
-                ?>
+                                <?php
+$cartype = array("SmallCar", "Truck", "SUV", "Van");
+foreach ($cartype as $type) {
+    ?>
                                 <option><?=$type?></option>
                                 <?php }?>
                             </select>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-  session_start();
+session_start();
 ?>
 <html lang="en">
 
@@ -73,9 +73,9 @@ img {
                         <!-- <a class="dropdown-item" href="#">รถเล็ก</a>
               <a class="dropdown-item" href="#">รถเล็ก</a>
               <a class="dropdown-item" href="#">รถเล็ก</a> -->
-                        <?php $cartype = array("SmallCar","Truck","SUV","Van"); 
-              foreach($cartype as $TypeMenu){
-              ?>
+                        <?php $cartype = array("SmallCar", "Truck", "SUV", "Van");
+foreach ($cartype as $TypeMenu) {
+    ?>
                         <a class="dropdown-item" href="ListCar.php?Type_Filter=<?=$TypeMenu?>"><?=$TypeMenu?></a>
                         <?php }?>
                         <a class="dropdown-item" href="Biling.php">Biling Carrent</a>
@@ -113,33 +113,33 @@ img {
                                 <input type="submit" value="Biling Search" class="btn btn-success" />
                             </form>
                         </div>
-                        <?php if(isset($_REQUEST["Personnumber"])){ 
-                $con = new mysqli("localhost","root","","V_carental");
-                $query1 = "SELECT * FROM v_carental_reservation WHERE Personnumber = '$_REQUEST[Personnumber]'";
-                $result1 = $con->query($query1);
-                $data =  $result1->fetch_assoc();
+                        <?php if (isset($_REQUEST["Personnumber"])) {
+    $con = new mysqli("localhost", "root", "", "V_carental");
+    $query1 = "SELECT * FROM v_carental_reservation WHERE Personnumber = '$_REQUEST[Personnumber]'";
+    $result1 = $con->query($query1);
+    $data = $result1->fetch_assoc();
 
-                if($result1->num_rows <> 0){
-                $query2 = "SELECT * FROM v_carental_carmanager WHERE CarSequence = '$data[CarSequence]'";
-                $result2 = $con->query($query2);
-                $data2 =  $result2->fetch_assoc();
-                
-              ?>
+    if ($result1->num_rows != 0) {
+        $query2 = "SELECT * FROM v_carental_carmanager WHERE CarSequence = '$data[CarSequence]'";
+        $result2 = $con->query($query2);
+        $data2 = $result2->fetch_assoc();
+
+        ?>
                         <div class="form-row d-flex justify-content-center align-items-center flex-column">
                             <img src="CarStore/<?=$data2['Path']?>" class="img-thumbnail m-5" alt="" />
                             <h4>Rent By <?=$data['Name']?></h4>
                             <h5>Rent Duration <?=$data['Rent_Time']?> To <?=$data['Return_Time']?> </h5>
-                            <h5>Price Amout <?php 
-                $date_date_rent = $data["Rent_Time"];
-                $date_date_rent = strtotime($date_date_rent);
-                $date_date_rent =  date('d', $date_date_rent);
-                
-                $date_date_Return = $data["Return_Time"];
-                $date_date_Return = strtotime($date_date_Return);
-                $date_date_Return =  date('d', $date_date_Return);
-                echo number_format((($date_date_Return - $date_date_rent) + 1) * $data2["Price"] + 2000) ." THB";
-                
-                ?> </h5>
+                            <h5>Price Amout <?php
+$date_date_rent = $data["Rent_Time"];
+        $date_date_rent = strtotime($date_date_rent);
+        $date_date_rent = date('d', $date_date_rent);
+
+        $date_date_Return = $data["Return_Time"];
+        $date_date_Return = strtotime($date_date_Return);
+        $date_date_Return = date('d', $date_date_Return);
+        echo number_format((($date_date_Return - $date_date_rent) + 1) * $data2["Price"] + 2000) . " THB";
+
+        ?> </h5>
                             <label for="biling">UploadBiling</label>
                             <form action="Biling_Upload.php" method="POST" enctype="multipart/form-data"
                                 class="d-flex justify-content-center flex-column">
@@ -159,7 +159,7 @@ img {
                             </form>
                         </div>
 
-                        <?php }} ?>
+                        <?php }}?>
                     </div>
                 </div>
             </div>

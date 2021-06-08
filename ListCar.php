@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-  session_start();
+session_start();
 ?>
 <html lang="en">
 
@@ -68,9 +68,9 @@
                         <!-- <a class="dropdown-item" href="#">รถเล็ก</a>
               <a class="dropdown-item" href="#">รถเล็ก</a>
               <a class="dropdown-item" href="#">รถเล็ก</a> -->
-                        <?php $cartype = array("SmallCar","Truck","SUV","Van"); 
-              foreach($cartype as $TypeMenu){
-              ?>
+                        <?php $cartype = array("SmallCar", "Truck", "SUV", "Van");
+foreach ($cartype as $TypeMenu) {
+    ?>
                         <a class="dropdown-item" href="ListCar.php?Type_Filter=<?=$TypeMenu?>"><?=$TypeMenu?></a>
                         <?php }?>
                         <a class="dropdown-item" href="Biling.php">Biling Carrent</a>
@@ -103,25 +103,24 @@
                                 <select name="Brand_Filter" class="custom-select" id="validationCustom04" required>
                                     <option readonly value="">Choose...</option>
                                     <?php
-                    $con1 = new mysqli("localhost","root","","V_carental");
-                    $BrandFilter = "SELECT DISTINCT Brand FROM v_carental_carmanager";
-                    $result = $con1->query($BrandFilter);                 
-                    while($bradarr = $result->fetch_assoc()){
-                  ?>
+$con1 = new mysqli("localhost", "root", "", "V_carental");
+$BrandFilter = "SELECT DISTINCT Brand FROM v_carental_carmanager";
+$result = $con1->query($BrandFilter);
+while ($bradarr = $result->fetch_assoc()) {
+    ?>
                                     <option value="<?=$bradarr["Brand"]?>"><?=$bradarr["Brand"]?></option>
-                                    <?php } ?>
+                                    <?php }?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="Type">Type</label>
                                 <select class="custom-select" name="Type_Filter" id="validationCustom04" required>
                                     <option readonly value="">Choose...</option>
-                                    <?php $cartype = array("SmallCar","Truck","SUV","Van"); 
-                  foreach($cartype as $type)
-                  {
-                  ?>
+                                    <?php $cartype = array("SmallCar", "Truck", "SUV", "Van");
+foreach ($cartype as $type) {
+    ?>
                                     <option value="<?=$type?>"><?=$type?></option>
-                                    <?php } ?>
+                                    <?php }?>
                                 </select>
                             </div>
 
@@ -144,27 +143,23 @@
             <div class="col-sm-12 col-lg-10">
                 <div class="row">
                     <?php
-              
-              $con = new mysqli("localhost","root","","V_carental");
-                  
-              $query = "SELECT * FROM v_carental_carmanager ORDER BY Type Desc";
-              if(isset($_GET["Type_Filter"]) && $_GET["Type_Filter"] <> "")
-              {
-                $query = "SELECT * FROM v_carental_carmanager WHERE Type = '$_GET[Type_Filter]'";
-              }
-              if(isset($_GET["Brand_Filter"]) && $_GET["Brand_Filter"] <> "")
-              {
-                $query = "SELECT * FROM v_carental_carmanager WHERE Brand = '$_GET[Brand_Filter]'";
-              }
-              if((isset($_GET["Brand_Filter"]) && $_GET["Brand_Filter"] <> "") && (isset($_GET["Type_Filter"]) && $_GET["Type_Filter"] <> ""))
-              {
-                $query = "SELECT * FROM v_carental_carmanager WHERE Type = '$_GET[Type_Filter]' AND Brand = '$_GET[Brand_Filter]'";
-              }
-              $result = $con->query($query);
 
-              while($row = $result->fetch_assoc())
-              {
-            ?>
+$con = new mysqli("localhost", "root", "", "V_carental");
+
+$query = "SELECT * FROM v_carental_carmanager ORDER BY Type Desc";
+if (isset($_GET["Type_Filter"]) && $_GET["Type_Filter"] != "") {
+    $query = "SELECT * FROM v_carental_carmanager WHERE Type = '$_GET[Type_Filter]'";
+}
+if (isset($_GET["Brand_Filter"]) && $_GET["Brand_Filter"] != "") {
+    $query = "SELECT * FROM v_carental_carmanager WHERE Brand = '$_GET[Brand_Filter]'";
+}
+if ((isset($_GET["Brand_Filter"]) && $_GET["Brand_Filter"] != "") && (isset($_GET["Type_Filter"]) && $_GET["Type_Filter"] != "")) {
+    $query = "SELECT * FROM v_carental_carmanager WHERE Type = '$_GET[Type_Filter]' AND Brand = '$_GET[Brand_Filter]'";
+}
+$result = $con->query($query);
+
+while ($row = $result->fetch_assoc()) {
+    ?>
                     <div class="col-sm-12 col-lg-3">
                         <div class="card m-3">
                             <div class="card-header Nav-bg">
@@ -177,34 +172,34 @@
                                 <p class="font-weight-bold">Model : <?=$row["Model"]?></p>
                                 <p class="font-weight-bold">Year : <?=$row["Year"]?></p>
                                 <p class="font-weight-bold">Seat : <?=$row["Seat"]?></p>
-                                <p class="font-weight-bold">Price : <?=number_format($row["Price"])." THB/Day"?></p>
+                                <p class="font-weight-bold">Price : <?=number_format($row["Price"]) . " THB/Day"?></p>
                                 <?php
-                  switch ($row["Carstatus"]) {
-                    case "On Rent":
-                      echo "<div class='alert alert-primary' role='alert'>
-                      ".$row["Carstatus"]."
+switch ($row["Carstatus"]) {
+        case "On Rent":
+            echo "<div class='alert alert-primary' role='alert'>
+                      " . $row["Carstatus"] . "
                       </div>
                     ";
-                      break;
-                      case "Available":
-                        echo "<div class='alert alert-success' role='alert'> ".$row["Carstatus"]."</div>";
-                        break;
-                      case "Picking":
-                          echo "<div class='alert alert-warning' role='alert'> ".$row["Carstatus"]."</div>";
-                        break;
-                      case "UnAvailable":
-                          echo "<div class='alert alert-danger' role='alert'> ".$row["Carstatus"]."</div>";
-                        break;  
-                          
-                  }
-                  ?>
+            break;
+        case "Available":
+            echo "<div class='alert alert-success' role='alert'> " . $row["Carstatus"] . "</div>";
+            break;
+        case "Picking":
+            echo "<div class='alert alert-warning' role='alert'> " . $row["Carstatus"] . "</div>";
+            break;
+        case "UnAvailable":
+            echo "<div class='alert alert-danger' role='alert'> " . $row["Carstatus"] . "</div>";
+            break;
+
+    }
+    ?>
                                 <a href="Reserve.php?CarSequence=<?=$row["CarSequence"]?>"><button
                                         class="btn btn-primary">Rent</button></a>
                             </div>
                             <!-- <div class="card-footer">Footer</div> -->
                         </div>
                     </div>
-                    <?php } ?>
+                    <?php }?>
 
                     <!-- EndRow -->
                 </div>

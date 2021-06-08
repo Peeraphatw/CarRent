@@ -64,15 +64,14 @@
 
 <body onload="window.print()">
     <?php
-    if(isset($_GET["Personnumber"]))
-    {
-      $con = new mysqli("localhost","root","","v_carental");
-      $query = "SELECT * FROM v_carental_reservation WHERE Personnumber = '$_GET[Personnumber]'";
-      $result = $con->query($query);
+if (isset($_GET["Personnumber"])) {
+    $con = new mysqli("localhost", "root", "", "v_carental");
+    $query = "SELECT * FROM v_carental_reservation WHERE Personnumber = '$_GET[Personnumber]'";
+    $result = $con->query($query);
 
-      $data = $result->fetch_assoc();
-    }
-  ?>
+    $data = $result->fetch_assoc();
+}
+?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 text-center font-weight-bold mb-5">
@@ -108,27 +107,27 @@
                             <td>1</td>
                             <td>
                                 <?php
-                    $query2 = "SELECT * FROM v_carental_carmanager WHERE CarSequence = '$data[CarSequence]'";
-                    $res = $con->query($query2);
-                    $data2 = $res->fetch_assoc();
-                    echo $data2["Model"]." ".$data2["Year"];
-                  ?>
+$query2 = "SELECT * FROM v_carental_carmanager WHERE CarSequence = '$data[CarSequence]'";
+$res = $con->query($query2);
+$data2 = $res->fetch_assoc();
+echo $data2["Model"] . " " . $data2["Year"];
+?>
                                 <img src="CarStore/<?=$data2["Path"]?>" alt="" width="450px">
                             </td>
                             <td><?=$data["Return_Time"]?></td>
                             <td><?=$data["Actual_Return"]?></td>
-                            <td><?php 
-                $date_date_rent = $data["Rent_Time"];
-                $date_date_rent = strtotime($date_date_rent);
-                $date_date_rent =  date('d', $date_date_rent);
-                
-                $date_date_Return = $data["Return_Time"];
-                $date_date_Return = strtotime($date_date_Return);
-                $date_date_Return =  date('d', $date_date_Return);
-                $nomal_price = (($date_date_Return - $date_date_rent) + 1) * $data2["Price"] ;
-                echo number_format($nomal_price) ." THB";
-                
-                ?></td>
+                            <td><?php
+$date_date_rent = $data["Rent_Time"];
+$date_date_rent = strtotime($date_date_rent);
+$date_date_rent = date('d', $date_date_rent);
+
+$date_date_Return = $data["Return_Time"];
+$date_date_Return = strtotime($date_date_Return);
+$date_date_Return = date('d', $date_date_Return);
+$nomal_price = (($date_date_Return - $date_date_rent) + 1) * $data2["Price"];
+echo number_format($nomal_price) . " THB";
+
+?></td>
                         </tr>
 
                     </tbody>
@@ -136,40 +135,36 @@
                         <tr class="">
                             <td colspan="4" class="text-center">รวม *ประกัน 2,000 บาท</td>
                             <td><?php
-                $Overtime_price = 0;
-                if($data["Actual_Return"] > $data["Return_Time"])
-                {
-                  $date_actual = $data["Actual_Return"];
-                  $date_actual = strtotime($date_actual);
-                  $date_actual =  date('H', $date_actual);
+$Overtime_price = 0;
+if ($data["Actual_Return"] > $data["Return_Time"]) {
+    $date_actual = $data["Actual_Return"];
+    $date_actual = strtotime($date_actual);
+    $date_actual = date('H', $date_actual);
 
-                  $date_date_actual = $data["Actual_Return"];
-                  $date_date_actual = strtotime($date_date_actual);
-                  $date_date_actual =  date('d', $date_date_actual);
-                  
+    $date_date_actual = $data["Actual_Return"];
+    $date_date_actual = strtotime($date_date_actual);
+    $date_date_actual = date('d', $date_date_actual);
 
-                  $date_return = $data["Return_Time"];
-                  $date_return = strtotime($date_return);
-                  $date_return_h =  date('H', $date_return);
-                 
-                  $date_date_return = $data["Return_Time"];
-                  $date_date_return = strtotime($date_date_return);
-                  $date_date_return =  date('d', $date_date_return);
-                 
-                  if(($date_date_actual == $date_date_return ) && $date_actual > 12 && ($date_return_h <= 12))
-                  {
-                   $Overtime_price =+ 100;
-                  }
-                  if($date_date_actual > $date_date_return)
-                  {
-                    $Overtime_price  += ($date_date_actual - $date_date_return) * 24 * 100;
-                  }
-                  
-                }
-                  $actual_price = $nomal_price + $Overtime_price;
-                  //echo number_format($data2["Price"] + $Overtime_price) ."THB" ;
-                  echo number_format($actual_price + 2000) ."THB" ;
-                ?> </td>
+    $date_return = $data["Return_Time"];
+    $date_return = strtotime($date_return);
+    $date_return_h = date('H', $date_return);
+
+    $date_date_return = $data["Return_Time"];
+    $date_date_return = strtotime($date_date_return);
+    $date_date_return = date('d', $date_date_return);
+
+    if (($date_date_actual == $date_date_return) && $date_actual > 12 && ($date_return_h <= 12)) {
+        $Overtime_price = +100;
+    }
+    if ($date_date_actual > $date_date_return) {
+        $Overtime_price += ($date_date_actual - $date_date_return) * 24 * 100;
+    }
+
+}
+$actual_price = $nomal_price + $Overtime_price;
+//echo number_format($data2["Price"] + $Overtime_price) ."THB" ;
+echo number_format($actual_price + 2000) . "THB";
+?> </td>
                         </tr>
                     </tfoot>
                 </table>

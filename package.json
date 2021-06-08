@@ -1,0 +1,27 @@
+{
+  "name": "CarRent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "popper.js": "^1.16.1",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Peeraphatw/CarRent.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Peeraphatw/CarRent/issues"
+  },
+  "homepage": "https://github.com/Peeraphatw/CarRent#readme"
+}
